@@ -23,17 +23,16 @@ public class EmployeeServiceImpl implements EmployeeService{
         EmployeeEntity employeeEntity = new EmployeeEntity();
         BeanUtils.copyProperties(employee, employeeEntity);
         employeeRepository.save(employeeEntity);
-        return null;
+        return employee;
     }
 
     @Override
     public List<Employee> getAllEmployees() {
         List<EmployeeEntity> employeeEntities = employeeRepository.findAll();
-        List<Employee> employees = employeeEntities
+        return employeeEntities
                 .stream()
                 .map(emp -> new Employee(emp.getId(), emp.getFirstName(), emp.getLastName(), emp.getEmailId()))
                 .collect(Collectors.toList());
-        return employees;
     }
 
     @Override
